@@ -20,7 +20,9 @@
     "target": "esnext",
     "baseUrl": ".",
     "paths": {
-      "*": ["src/*"]
+      "*": ["src/*"],
+      "@contexts/*": ["src/contexts/*"],
+      "@hocs/*": ["src/hocs/*"],
     }
   },
   "exclude": ["node_modules"],
