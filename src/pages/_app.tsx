@@ -1,12 +1,19 @@
 import { FC, useEffect } from 'react';
-import React from 'react';
-import Layout from 'Layouts';
+import { AuthProvider } from '@contexts/AuthContext';
+import cookie from 'cookie';
 import App from 'next/app';
+function MyApp(props: any) {
+  useEffect(() => {
+    document.body.classList?.remove('loading');
+  }, []);
 
-import type { AppProps /*, AppContext */ } from 'next/app';
+  console.log();
 
-function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <AuthProvider authenticated={props.authenticated}>
+      <props.Component {...props.pageProps} />
+    </AuthProvider>
+  );
 }
 
 MyApp.getInitialProps = async (appContext: any) => {
@@ -14,10 +21,9 @@ MyApp.getInitialProps = async (appContext: any) => {
   const request = appContext.ctx.req;
 
   if (request) {
-    // request.cookies = cookie.parse(request.headers.cookie || '');
-    // authenticated = !!request.cookies.token;
+    request.cookies = cookie.parse(request.headers.cookie || '');
+    authenticated = !!request.cookies.accessToken;
   }
-  // console.log(authenticated);
   const appProps = await App.getInitialProps(appContext);
 
   return { ...appProps, authenticated };

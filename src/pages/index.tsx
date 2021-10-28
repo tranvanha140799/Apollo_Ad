@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import withAuth from '@hocs/withAuth';
 
-export default function Index() {
+function Index() {
   const router = useRouter();
   useEffect(() => {
     router.push('/extra-components/accordion');
@@ -9,3 +10,5 @@ export default function Index() {
     [];
   return <div />;
 }
+
+export default withAuth(Index);

@@ -4,7 +4,7 @@ import withConditionalRedirect from './withConditionalRedirect';
  * Require the user to be authenticated in order to render the component.
  * If the user isn't authenticated, forward to the given URL.
  */
-export default function withAuth(WrappedComponent: any, location = '/login') {
+export default function withAuth(WrappedComponent: any, location = '/auth/login') {
   return withConditionalRedirect({
     WrappedComponent,
     location,
@@ -12,7 +12,7 @@ export default function withAuth(WrappedComponent: any, location = '/login') {
       return !useIsAuthenticated();
     },
     serverCondition: function withAuthServerCondition(ctx: any) {
-      return !ctx.req?.cookies.token;
+      return !ctx.req?.cookies.accessToken;
     },
   });
 }

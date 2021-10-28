@@ -3,14 +3,16 @@ import { InputGroup } from '@paljs/ui/Input';
 import { Checkbox } from '@paljs/ui/Checkbox';
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Cookies } from 'react-cookie';
+import Cookie from 'js-cookie';
 import Auth, { Group } from 'components/Auth';
 import Socials from 'components/Auth/Socials';
 import Layout from 'Layouts';
 import { login } from 'core/services/user';
-import { stringify } from 'querystring';
+import { useAuth } from '@contexts/AuthContext';
+import withoutAuth from '@hocs/withoutAuth';
 
-export default function Login() {
+function Login() {
+  const { setAuthenticated } = useAuth();
   const onCheckbox = () => {
     // v will be true or false
   };
@@ -24,11 +26,10 @@ export default function Login() {
     e.preventDefault();
     try {
       const resp: any = await login(user);
-      const cookies = new Cookies();
       const res = resp.data.responseData;
       if (res.accessToken) {
-        console.log(`respData?.accessToken`, res.accessToken);
-        cookies.set('accessToken', res.accessToken);
+        setAuthenticated(true);
+        Cookie.set('accessToken', res.accessToken, { expires: 7 });
         localStorage.setItem('roles', JSON.stringify(res.roles));
       }
       if (res.roles[0] === 'ROLE_ADMIN') {
@@ -89,3 +90,5 @@ export default function Login() {
     </Layout>
   );
 }
+
+export default withoutAuth(Login);
