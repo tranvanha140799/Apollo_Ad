@@ -12,9 +12,9 @@ export default withAuth(function Logout() {
     async function doLogout() {
       const response = await fetch('/api/logout');
       if (response.status === 200) {
-        Cookie.remove('token');
-        // localStorage.removeItem('@fastdeal/basic-info');
-        // setUserInfo(null);
+        Cookie.remove('accessToken');
+        localStorage.removeItem('roles');
+        localStorage.removeItem('username');
         setAuthenticated(false);
       } else {
         console.error('Failed to logout', response);

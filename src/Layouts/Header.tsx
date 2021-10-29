@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import styled, { DefaultTheme } from 'styled-components';
@@ -59,6 +59,11 @@ interface HeaderProps {
   dir: 'rtl' | 'ltr';
 }
 
+interface UserInfo {
+  name: string;
+  roleTitle: string;
+}
+
 const Header: React.FC<HeaderProps> = (props) => {
   const router = useRouter();
   const themeOptions = () => [
@@ -79,27 +84,20 @@ const Header: React.FC<HeaderProps> = (props) => {
           Dark
         </Label>
       ),
-    },
-    {
-      value: 'cosmic',
-      label: (
-        <Label>
-          <EvaIcon name="droplet" options={{ fill: '#5a37b8' }} />
-          Cosmic
-        </Label>
-      ),
-    },
-    {
-      value: 'corporate',
-      label: (
-        <Label>
-          <EvaIcon name="droplet" options={{ fill: '#3366ff' }} />
-          Corporate
-        </Label>
-      ),
       selected: true,
     },
   ];
+
+  const [userInfo, setUserInfo] = useState<UserInfo>({
+    name: 'user',
+    roleTitle: 'none',
+  });
+
+  useEffect(() => {
+    const username = localStorage.getItem('username')!;
+    setUserInfo({ ...userInfo, name: username });
+  }, []);
+
   return (
     <LayoutHeader fixed>
       <HeaderStyle>
@@ -147,30 +145,6 @@ const Header: React.FC<HeaderProps> = (props) => {
           actions={[
             {
               content: (
-                <a
-                  className="left"
-                  href={`https://github.com/paljs/nextjs-admin-template`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  <span className="github">Support us in GitHub</span>
-                  <img src={`https://badgen.net/github/stars/paljs/nextjs-admin-template`} />
-                </a>
-              ),
-            },
-            {
-              content: (
-                <a href="https://discord.gg/NRmdvDxsT8" target="_blank" rel="noreferrer">
-                  <img height="20" src="/discord.svg" alt="slack" />
-                </a>
-              ),
-            },
-            {
-              icon: 'twitter',
-              url: { href: 'https://twitter.com/AhmedElywh', target: '_blank' },
-            },
-            {
-              content: (
                 <ContextMenu
                   nextJs
                   style={{ cursor: 'pointer' }}
@@ -182,7 +156,12 @@ const Header: React.FC<HeaderProps> = (props) => {
                   ]}
                   Link={Link}
                 >
-                  <User image="url('/icons/icon-72x72.png')" name="Ahmed Elywa" title="Manger" size="Medium" />
+                  <User
+                    image="url('/icons/icon-72x72.png')"
+                    name={userInfo.name}
+                    title={userInfo.roleTitle}
+                    size="Medium"
+                  />
                 </ContextMenu>
               ),
             },

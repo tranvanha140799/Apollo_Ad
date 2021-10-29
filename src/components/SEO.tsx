@@ -3,7 +3,7 @@ import Head from 'next/head';
 
 const SEO: React.FC<SEOProps> = ({ description, keywords, title }) => (
   <Head>
-    <title>{title} | Next.Js free admin react template</title>
+    <title>{title}</title>
     <meta name="description" content={description} />
     <meta name="keywords" content={keywords?.join(', ')} />
     <meta property="og:type" content="website" />
@@ -44,7 +44,7 @@ export interface SEOProps {
 }
 
 SEO.defaultProps = {
-  description: 'Free admin dashboard template based on Next.Js with @paljs/ui component package',
+  description: '',
   keywords: [
     'admin-dashboard',
     'admin',

@@ -31,11 +31,12 @@ function Login() {
         setAuthenticated(true);
         Cookie.set('accessToken', res.accessToken, { expires: 7 });
         localStorage.setItem('roles', JSON.stringify(res.roles));
+        localStorage.setItem('username', res.username);
       }
       if (res.roles[0] === 'ROLE_ADMIN') {
       }
     } catch (err) {
-      console.log(err);
+      console.log('err', err);
     }
   };
 
