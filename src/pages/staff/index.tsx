@@ -4,9 +4,14 @@ import withAuth from '@hocs/withAuth';
 import { Table } from 'antd';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { parse } from 'path/posix';
 
 function index() {
+  const [role, setRole] = useState<any>();
+
   useEffect(() => {
+    let value = localStorage.getItem('roles') ?? '';
+    setRole(JSON.parse(value));
     getStaffList();
   }, []);
 
@@ -70,13 +75,19 @@ function index() {
       address: 'London No. 2 Lake Park',
     },
   ];
-
+  console.log(`role`, role);
   return (
-    <Layout title={'Staff'}>
-      <div>
-        <Table columns={columns} dataSource={data} />
-      </div>
-    </Layout>
+    <>
+      {role && role[0] === 'ROLE_ADMIN' ? (
+        <Layout title={'Staff'}>
+          <div>
+            <Table columns={columns} dataSource={data} />
+          </div>
+        </Layout>
+      ) : (
+        <p style={{ textAlign: 'center' }}>You dont have permissions to view this page</p>
+      )}
+    </>
   );
 }
 

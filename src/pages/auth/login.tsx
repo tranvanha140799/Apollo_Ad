@@ -27,6 +27,8 @@ function Login() {
     try {
       const resp: any = await login(user);
       const res = resp.data.responseData;
+      console.log(res);
+
       if (res.accessToken) {
         setAuthenticated(true);
         Cookie.set('accessToken', res.accessToken, { expires: 7 });
