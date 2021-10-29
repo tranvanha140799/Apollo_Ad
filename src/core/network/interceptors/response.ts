@@ -1,7 +1,7 @@
-const STATUS = {
-  UNAUTHORIZED: 401,
-  FORBIDDEN: 403,
-};
+// const STATUS = {
+//   UNAUTHORIZED: 401,
+//   FORBIDDEN: 403,
+// };
 
 export function onFullfilled(response: any) {
   return Promise.resolve(response);
