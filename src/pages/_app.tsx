@@ -1,6 +1,6 @@
 import 'antd/dist/antd.css';
 
-import { FC, useEffect } from 'react';
+import { useEffect } from 'react';
 import { AuthProvider } from '@contexts/AuthContext';
 import cookie from 'cookie';
 import App from 'next/app';
