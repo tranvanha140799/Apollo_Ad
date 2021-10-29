@@ -1,12 +1,18 @@
-export async function addAccessToken(initialConfig: any) {
+import { Cookies } from 'react-cookie';
+
+export function addAccessToken(initialConfig: any) {
   const config = initialConfig;
 
-  //   const token = getToken();
-  //   if (token) {
-  //     Object.assign(config.headers, {
-  //       Authorization: 'Bearer ' + token,
-  //     });
-  //   }
+  const cookies = new Cookies();
+  const token = cookies.get('accessToken');
+
+  if (token) {
+    Object.assign(config.headers, {
+      Authorization: `Bearer ${token}`,
+    });
+  }
+  console.log('config', config);
+
   return config;
 }
 
