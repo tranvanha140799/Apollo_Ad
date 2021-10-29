@@ -1,3 +1,5 @@
+import 'antd/dist/antd.css';
+
 import { FC, useEffect } from 'react';
 import { AuthProvider } from '@contexts/AuthContext';
 import cookie from 'cookie';
@@ -6,8 +8,6 @@ function MyApp(props: any) {
   useEffect(() => {
     document.body.classList?.remove('loading');
   }, []);
-
-  console.log();
 
   return (
     <AuthProvider authenticated={props.authenticated}>
