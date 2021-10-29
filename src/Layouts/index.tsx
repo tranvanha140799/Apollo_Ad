@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect, Fragment } from 'react';
 import { DefaultTheme, ThemeProvider } from 'styled-components';
 import themes from './themes';
-import { Layout, LayoutContent, LayoutFooter, LayoutContainer, LayoutColumns, LayoutColumn } from '@paljs/ui/Layout';
+import { Layout, LayoutContent, LayoutContainer, LayoutColumns, LayoutColumn } from '@paljs/ui/Layout';
 import icons from '@paljs/icons';
 import { SidebarBody, SidebarRefObject, Sidebar } from '@paljs/ui/Sidebar';
 import Header from './Header';
