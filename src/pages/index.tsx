@@ -3,12 +3,7 @@ import { useRouter } from 'next/router';
 import withAuth from '@hocs/withAuth';
 
 function Index() {
-  const router = useRouter();
-  useEffect(() => {
-    router.push('/extra-components/accordion');
-  }),
-    [];
-  return <div />;
+  return <Layout title="Home" />;
 }
 
 export default withAuth(Index);
