@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Layout from 'Layouts';
 import withAuth from '@hocs/withAuth';
 import { Table } from 'antd';
-import { slk_all } from '@core/services/API';
+import { slk_thang } from '@core/services/API';
 
 function index() {
   const [slkData, setSlkData] = useState([]);
@@ -12,8 +12,10 @@ function index() {
   }, []);
 
   const getSLKList = async () => {
-    slk_all()
+    slk_thang('20190719')
       .then((resp: any) => {
+        console.log(resp.data);
+
         setSlkData(resp.data);
       })
       .catch((error: any) => {
