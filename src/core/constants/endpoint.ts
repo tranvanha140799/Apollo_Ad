@@ -5,17 +5,15 @@ export const CONTEXT = {
 };
 
 export const CONTROLLERS = {
-  AUTH: 'auth',
-  TEST: 'test',
-  STAFF: 'staff',
-  COMMODITY: 'commodity',
-  CUSTOMERCARE: 'customer-care',
+  SLK: 'slk',
+  CONGVIEC: 'congviec',
+  SANPHAM: 'sanpham',
 };
 
 export const ENDPOINTS = {
-  PUBLIC: `${CONTEXT.API}/${CONTROLLERS.TEST}`,
-  LOGIN: `${CONTEXT.API}/${CONTROLLERS.AUTH}/signin`,
-  SIGNUP: `${CONTEXT.API}/${CONTROLLERS.AUTH}/signup`,
-  LISTSTAFF: `${CONTEXT.ADMIN}/${CONTROLLERS.STAFF}/list`,
-  LISTFEATURE: `${CONTEXT.STATIC}/feature`,
+  PUBLIC: `${CONTEXT.API}/${CONTROLLERS.SLK}`,
+  SLK: `${CONTEXT.API}/${CONTROLLERS.SLK}`,
+  CONGVIEC: `${CONTEXT.API}/${CONTROLLERS.CONGVIEC}`,
+  SANPHAM: `${CONTEXT.API}/${CONTROLLERS.SANPHAM}`,
+  SLK_ALL: `${CONTEXT.API}/${CONTROLLERS.SLK}/all`,
 };

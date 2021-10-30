@@ -7,15 +7,12 @@ import Cookie from 'js-cookie';
 import Auth, { Group } from 'components/Auth';
 import Socials from 'components/Auth/Socials';
 import Layout from 'Layouts';
-import { login } from 'core/services/user';
 import { useAuth } from '@contexts/AuthContext';
 import withoutAuth from '@hocs/withoutAuth';
 
 function Login() {
   const { setAuthenticated } = useAuth();
-  const onCheckbox = () => {
-    // v will be true or false
-  };
+  const onCheckbox = () => {};
 
   const [user, setUser] = useState<object>({
     username: '',
@@ -25,17 +22,10 @@ function Login() {
   const onSubmit = async (e: any) => {
     e.preventDefault();
     try {
-      const resp: any = await login(user);
-      const res = resp.data.responseData;
-      console.log(res);
-
-      if (res.accessToken) {
+      if (user.username === 'admin' && user.password === 'admin') {
         setAuthenticated(true);
-        Cookie.set('accessToken', res.accessToken, { expires: 7 });
-        localStorage.setItem('roles', JSON.stringify(res.roles));
-        localStorage.setItem('username', res.username);
-      }
-      if (res.roles[0] === 'ROLE_ADMIN') {
+        Cookie.set('accessToken', 'admin', { expires: 7 });
+        localStorage.setItem('username', 'admin');
       }
     } catch (err) {
       console.log('err', err);
