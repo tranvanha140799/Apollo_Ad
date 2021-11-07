@@ -11,6 +11,21 @@ const items: MenuItemType[] = [
     icon: { name: 'edit-2-outline' },
     link: { href: '/slk' },
   },
+  {
+    title: 'Công Việc',
+    icon: { name: 'edit-2-outline' },
+    link: { href: '/congviec' },
+  },
+  {
+    title: 'Sản Phẩm',
+    icon: { name: 'edit-2-outline' },
+    link: { href: '/sanpham' },
+  },
+  {
+    title: 'Nhân Công',
+    icon: { name: 'edit-2-outline' },
+    link: { href: '/nhancong' },
+  },
   // {
   //   title: 'FEATURES',
   //   group: true,
