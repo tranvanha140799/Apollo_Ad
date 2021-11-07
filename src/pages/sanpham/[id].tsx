@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import Layout from 'Layouts';
 import withAuth from '@hocs/withAuth';
 import { Form, Input, Space, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
+import { getSanPham } from '@core/services/API';
 
 const formItemLayout = {
   labelCol: {
@@ -29,7 +30,7 @@ const tailFormItemLayout = {
 
 function index() {
   const router = useRouter();
-  const { slug } = router.query; // object destructuring
+  const { id } = router.query;
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -37,28 +38,25 @@ function index() {
   }, []);
 
   const LoadDetail = () => {
-    // ProductDetail(slug!.toString())
-    //   .then((resp) => {
-    //     const data = resp.data?.Data?.product;
-    //     if (data) {
-    //       fillForm(resp.data?.Data.product);
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    getSanPham(id!.toString())
+      .then((resp) => {
+        const data = resp.data;
+        if (data) {
+          fillForm(resp.data);
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const fillForm = (data: any) => {
     form.setFieldsValue({
-      ProductCode: data?.ProductCode,
-      ProductId: data?.ProductId,
-      Discount: data.Discount,
-      Price: data.Price,
-      CreateDate: data.CreateDate,
-      Quantity: data.Quantity,
-      Slug: data.Slug,
-      Title: data.Title,
+      maSanPham: data?.maSanPham,
+      tenSanPham: data?.tenSanPham,
+      soDangKy: data.soDangKy,
+      ngayDangKy: data.ngayDangKy,
+      ngaySanXuat: data.ngaySanXuat,
     });
   };
 
@@ -75,28 +73,19 @@ function index() {
   return (
     <Layout title={'Product'}>
       <Form {...formItemLayout} form={form} name="register" onFinish={handleUpdateProduct} scrollToFirstError>
-        <Form.Item name="ProductCode" label="Product Code" preserve>
+        <Form.Item name="maSanPham" label="maSanPham" preserve>
           <Input disabled={true} />
         </Form.Item>
-        <Form.Item name="ProductId" label="ProductId" preserve>
+        <Form.Item name="tenSanPham" label="tenSanPham">
+          <Input />
+        </Form.Item>
+        <Form.Item name="soDangKy" label="soDangKy" preserve>
+          <Input />
+        </Form.Item>
+        <Form.Item name="ngayDangKy" label="ngayDangKy" preserve>
           <Input disabled={true} />
         </Form.Item>
-        <Form.Item name="Title" label="Title">
-          <Input />
-        </Form.Item>
-        <Form.Item name="Price" label="Price">
-          <Input />
-        </Form.Item>
-        <Form.Item name="Quantity" label="Quantity">
-          <Input />
-        </Form.Item>
-        <Form.Item name="Slug" label="Slug">
-          <Input />
-        </Form.Item>
-        <Form.Item name="Discount" label="Discount">
-          <Input />
-        </Form.Item>
-        <Form.Item name="CreateDate" label="CreateDate" preserve>
+        <Form.Item name="ngaySanXuat" label="ngaySanXuat" preserve>
           <Input disabled={true} />
         </Form.Item>
 

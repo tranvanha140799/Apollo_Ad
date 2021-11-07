@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import Layout from 'Layouts';
 import withAuth from '@hocs/withAuth';
-import { Table } from 'antd';
+import { Table, DatePicker } from 'antd';
 import { slk_thang } from '@core/services/API';
 
 function index() {
   const [slkData, setSlkData] = useState([]);
-
+  const [date, setDate] = useState<string>('20190719');
   useEffect(() => {
     getSLKList();
-  }, []);
+  }, [date]);
 
   const getSLKList = async () => {
-    slk_thang('20190719')
+    slk_thang(date)
       .then((resp: any) => {
         console.log(resp.data);
 
@@ -49,9 +49,16 @@ function index() {
       dataIndex: 'gioKetThuc',
     },
   ];
-
+  function onChange(date: any, dateString: any) {
+    const selectedDate = dateString.replaceAll('-', '');
+    console.log(dateString.replaceAll('-', ''));
+    setDate(selectedDate);
+  }
   return (
     <Layout title={'Staff'}>
+      <div>
+        <DatePicker onChange={onChange} />
+      </div>
       <div>
         <Table columns={columns} dataSource={slkData} />
       </div>
