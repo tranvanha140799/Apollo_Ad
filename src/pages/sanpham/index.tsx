@@ -6,7 +6,8 @@ import axios from 'axios';
 import Cookies from 'js-cookie';
 import { parse } from 'path/posix';
 import Link from 'next/link';
-import { getListSanPham } from '@core/services/API';
+import { deleteSanPham, getListSanPham } from '@core/services/API';
+import router from 'next/router';
 
 function index() {
   const [productData, setProductData] = useState<any>();
@@ -27,6 +28,19 @@ function index() {
       })
       .catch((error) => {
         console.log('error', error);
+      });
+  };
+
+  console.log(`productData`, productData);
+  const handleDeleteProduct = (id: any) => {
+    deleteSanPham(id!.toString())
+      .then((resp) => {
+        const data = resp.data;
+        console.log(`data`, data);
+        getProductList();
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -59,7 +73,7 @@ function index() {
           <Link href={`sanpham/${record.maSanPham}`}>
             <a>Detail</a>
           </Link>
-          <a>Delete</a>
+          <a onClick={() => handleDeleteProduct(record.maSanPham)}>Delete</a>
         </Space>
       ),
     },
