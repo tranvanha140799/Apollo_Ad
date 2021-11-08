@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Layout from 'Layouts';
 import withAuth from '@hocs/withAuth';
-import { Table, Space, Pagination } from 'antd';
+import { Table, Space, Pagination, DatePicker } from 'antd';
 import axios from 'axios';
 import Cookies from 'js-cookie';
 import { parse } from 'path/posix';
@@ -14,6 +14,7 @@ function index() {
   const [totalRecord, setTotalRecord] = useState<number>(0);
   const [pageSize] = useState<number>(10);
   const [currentPage, setCurrentPage] = useState<number>(1);
+  const [date, setDate] = useState<string>('20190719');
 
   useEffect(() => {
     getProductList();
@@ -68,8 +69,17 @@ function index() {
     setCurrentPage(page);
   };
 
+  function onChange(date: any, dateString: any) {
+    const selectedDate = dateString.replaceAll('-', '');
+    console.log(dateString.replaceAll('-', ''));
+    setDate(selectedDate);
+  }
+
   return (
     <Layout title={'Product'}>
+      <div>
+        <DatePicker onChange={onChange} />
+      </div>
       <div>
         <Table columns={columns} dataSource={productData} pagination={false} />
         <Pagination

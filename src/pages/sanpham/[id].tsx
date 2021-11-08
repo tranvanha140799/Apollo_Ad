@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Layout from 'Layouts';
 import withAuth from '@hocs/withAuth';
 import { Form, Input, Space, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
-import { getSanPham } from '@core/services/API';
+import { getSanPham, editSanPham } from '@core/services/API';
 
 const formItemLayout = {
   labelCol: {
@@ -61,13 +61,14 @@ function index() {
   };
 
   const handleUpdateProduct = (values: any) => {
-    // ProductUpdate(values)
-    //   .then((resp) => {
-    //     console.log(resp.data);
-    //   })
-    //   .catch((error) => {
-    //     console.log('error', error);
-    //   });
+    editSanPham(values, id!.toString())
+      .then((resp) => {
+        console.log(resp.data);
+        router.push('/sanpham');
+      })
+      .catch((error) => {
+        console.log('error', error);
+      });
   };
 
   return (

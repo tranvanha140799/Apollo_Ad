@@ -16,11 +16,11 @@ const items: MenuItemType[] = [
     icon: { name: 'edit-2-outline' },
     link: { href: '/congviec' },
   },
-  {
-    title: 'Sản Phẩm',
-    icon: { name: 'edit-2-outline' },
-    link: { href: '/sanpham' },
-  },
+  // {
+  //   title: 'Sản Phẩm',
+  //   icon: { name: 'edit-2-outline' },
+  //   link: { href: '/sanpham' },
+  // },
   {
     title: 'Nhân Công',
     icon: { name: 'edit-2-outline' },
@@ -30,56 +30,20 @@ const items: MenuItemType[] = [
   //   title: 'FEATURES',
   //   group: true,
   // },
-  // {
-  //   title: 'Extra Components',
-  //   icon: { name: 'star-outline' },
-  //   children: [
-  //     {
-  //       title: 'Accordion',
-  //       link: { href: '/extra-components/accordion' },
-  //     },
-  //     {
-  //       title: 'Actions',
-  //       link: { href: '/extra-components/actions' },
-  //     },
-  //     {
-  //       title: 'Alert',
-  //       link: { href: '/extra-components/alert' },
-  //     },
-  //     {
-  //       title: 'List',
-  //       link: { href: '/extra-components/list' },
-  //     },
-  //     {
-  //       title: 'Spinner',
-  //       link: { href: '/extra-components/spinner' },
-  //     },
-  //     {
-  //       title: 'Progress Bar',
-  //       link: { href: '/extra-components/progress' },
-  //     },
-  //     {
-  //       title: 'Tabs',
-  //       link: { href: '/extra-components/tabs' },
-  //     },
-  //     {
-  //       title: 'Chat',
-  //       link: { href: '/extra-components/chat' },
-  //     },
-  //     {
-  //       title: 'Cards',
-  //       link: { href: '/extra-components/cards' },
-  //     },
-  //     {
-  //       title: 'Flip Card',
-  //       link: { href: '/extra-components/flip-card' },
-  //     },
-  //     {
-  //       title: 'Reveal Card',
-  //       link: { href: '/extra-components/reveal-card' },
-  //     },
-  //   ],
-  // },
+  {
+    title: 'Sản Phẩm',
+    icon: { name: 'star-outline' },
+    children: [
+      {
+        title: 'Thêm mới',
+        link: { href: '/sanpham/create' },
+      },
+      {
+        title: 'Danh sách',
+        link: { href: '/sanpham' },
+      },
+    ],
+  },
   // {
   //   title: 'Forms',
   //   icon: { name: 'edit-2-outline' },

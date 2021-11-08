@@ -7,6 +7,7 @@ import { slk_thang } from '@core/services/API';
 function index() {
   const [slkData, setSlkData] = useState([]);
   const [date, setDate] = useState<string>('20190719');
+
   useEffect(() => {
     getSLKList();
   }, [date]);
@@ -50,14 +51,13 @@ function index() {
     },
   ];
   function onChange(date: any, dateString: any) {
-    const selectedDate = dateString.replaceAll('-', '');
-    console.log(dateString.replaceAll('-', ''));
+    const selectedDate = dateString.replaceAll('-', '') + '01';
     setDate(selectedDate);
   }
   return (
     <Layout title={'Staff'}>
       <div>
-        <DatePicker onChange={onChange} />
+        <DatePicker onChange={onChange} picker="month" />
       </div>
       <div>
         <Table columns={columns} dataSource={slkData} />
