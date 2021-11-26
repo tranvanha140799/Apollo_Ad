@@ -7,7 +7,7 @@ export const CONTEXT = {
 export const CONTROLLERS = {
   SLK: 'slk',
   CONGVIEC: 'congviec',
-  SANPHAM: 'sanpham',
+  SANPHAM: 'Products',
 };
 
 export const ENDPOINTS = {

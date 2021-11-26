@@ -4,6 +4,7 @@ import Layout from 'Layouts';
 import withAuth from '@hocs/withAuth';
 import { Form, Input, Space, Button } from 'antd';
 import { addSanPham } from '@core/services/API';
+import axios from 'axios';
 
 const formItemLayout = {
   labelCol: {
@@ -34,7 +35,9 @@ function index() {
   const [form] = Form.useForm();
 
   const handleAddProduct = (item: any) => {
-    addSanPham(item)
+    console.log(item);
+    axios
+      .post('https://localhost:44300/api/Products/InsertProduct', item)
       .then((resp) => {
         const data = resp.data;
         router.push('/sanpham');
@@ -50,17 +53,29 @@ function index() {
   return (
     <Layout title={'Product'}>
       <Form {...formItemLayout} form={form} name="register" onFinish={handleAddProduct} scrollToFirstError>
-        <Form.Item name="tenSanPham" label="tenSanPham">
+        <Form.Item name="brandId" label="brandId">
+          <Input type="number" />
+        </Form.Item>
+        <Form.Item name="typeId" label="typeId">
           <Input />
         </Form.Item>
-        <Form.Item name="soDangKy" label="soDangKy" preserve>
+        <Form.Item name="productCode" label="Mã sản phẩm">
           <Input />
         </Form.Item>
-        <Form.Item name="ngayDangKy" label="ngayDangKy" preserve>
-          <Input disabled={true} />
+        <Form.Item name="productName" label="Tên sản phẩm">
+          <Input />
         </Form.Item>
-        <Form.Item name="ngaySanXuat" label="ngaySanXuat" preserve>
-          <Input disabled={true} />
+        <Form.Item name="imageProduct" label="Image">
+          <Input />
+        </Form.Item>
+        <Form.Item name="priceProduct" label="Đơn giá" preserve>
+          <Input />
+        </Form.Item>
+        <Form.Item name="quantityProduct" label="Số lượng" preserve>
+          <Input />
+        </Form.Item>
+        <Form.Item name="descriptionProduct" label="Mô tả" preserve>
+          <Input />
         </Form.Item>
 
         <Form.Item {...tailFormItemLayout}>

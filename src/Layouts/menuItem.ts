@@ -7,9 +7,9 @@ const items: MenuItemType[] = [
     link: { href: '/dashboard' },
   },
   {
-    title: 'NKSLK',
+    title: 'Order',
     icon: { name: 'edit-2-outline' },
-    link: { href: '/slk' },
+    link: { href: '/order' },
   },
   {
     title: 'Công Việc',

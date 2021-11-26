@@ -11,7 +11,7 @@ import router from 'next/router';
 
 function index() {
   const [productData, setProductData] = useState<any>();
-  const [totalPage, setTotalPage] = useState<number>(2);
+  const [totalPage, setTotalPage] = useState<number>(1);
   const [totalRecord, setTotalRecord] = useState<number>(0);
   const [pageSize] = useState<number>(10);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -21,23 +21,58 @@ function index() {
     getProductList();
   }, [currentPage]);
 
-  const getProductList = async () => {
-    getListSanPham(currentPage - 1, pageSize)
-      .then((resp) => {
-        setProductData(resp.data);
+  //   const getProductList = async () => {
+  //     getListSanPham(currentPage - 1, pageSize)
+  //       .then((resp) => {
+  //         setProductData(resp.data);
+  //       })
+  //       .catch((error) => {
+  //         console.log('error', error);
+  //       });
+  //   };
+  //   const data = [
+  //       {
+  //         maSanPham: 1,
+  //         tenSanPham: 'iPhone 12',
+  //         donGia: 13990,
+  //         soLuong: 113,
+  //         moTa: 'Flagship iPhone 12'
+  //       },
+  //       {
+  //         maSanPham: 2,
+  //         tenSanPham: 'iPhone 13',
+  //         donGia: 17990,
+  //         soLuong: 123,
+  //         moTa: 'Flagship iPhone 13'
+  //       },
+  //       {
+  //         maSanPham: 3,
+  //         tenSanPham: 'iPhone 14',
+  //         donGia: 23990,
+  //         soLuong: 413,
+  //         moTa: 'Flagship iPhone 14'
+  //       },
+  //     ];
+
+  const getProductList = () => {
+    axios
+      .get('https://localhost:44300/api/Products')
+      .then((res) => {
+        //   console.log(res.data);
+        setProductData(res.data);
       })
-      .catch((error) => {
-        console.log('error', error);
+      .catch((res) => {
+        console.log(res);
       });
   };
 
-  console.log(`productData`, productData);
+  //   console.log(`productData`, productData);
   const handleDeleteProduct = (id: any) => {
     deleteSanPham(id!.toString())
       .then((resp) => {
         const data = resp.data;
         console.log(`data`, data);
-        getProductList();
+        // getProductList();
       })
       .catch((error) => {
         console.log(error);
@@ -47,23 +82,23 @@ function index() {
   const columns = [
     {
       title: 'Ma San Pham',
-      dataIndex: 'maSanPham',
+      dataIndex: 'productId',
     },
     {
       title: 'Ten San Pham',
-      dataIndex: 'tenSanPham',
+      dataIndex: 'productName',
     },
     {
-      title: 'soDangKy',
-      dataIndex: 'soDangKy',
+      title: 'Don Gia',
+      dataIndex: 'priceProduct',
     },
     {
-      title: 'ngayDangKy',
-      dataIndex: 'ngayDangKy',
+      title: 'So Luong',
+      dataIndex: 'quantityProduct',
     },
     {
-      title: 'ngaySanXuat',
-      dataIndex: 'ngaySanXuat',
+      title: 'Mo Ta',
+      dataIndex: 'descriptionProduct',
     },
     {
       title: 'Action',

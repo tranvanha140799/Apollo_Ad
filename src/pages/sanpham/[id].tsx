@@ -74,20 +74,20 @@ function index() {
   return (
     <Layout title={'Product'}>
       <Form {...formItemLayout} form={form} name="register" onFinish={handleUpdateProduct} scrollToFirstError>
-        <Form.Item name="maSanPham" label="maSanPham" preserve>
-          <Input disabled={true} />
-        </Form.Item>
-        <Form.Item name="tenSanPham" label="tenSanPham">
+        <Form.Item name="maSanPham" label="Mã sản phẩm" preserve>
           <Input />
         </Form.Item>
-        <Form.Item name="soDangKy" label="soDangKy" preserve>
+        <Form.Item name="tenSanPham" label="Tên sản phẩm">
           <Input />
         </Form.Item>
-        <Form.Item name="ngayDangKy" label="ngayDangKy" preserve>
-          <Input disabled={true} />
+        <Form.Item name="donGia" label="Đơn giá" preserve>
+          <Input />
         </Form.Item>
-        <Form.Item name="ngaySanXuat" label="ngaySanXuat" preserve>
-          <Input disabled={true} />
+        <Form.Item name="soLuong" label="Số lượng" preserve>
+          <Input />
+        </Form.Item>
+        <Form.Item name="moTa" label="Mô tả" preserve>
+          <Input />
         </Form.Item>
 
         <Form.Item {...tailFormItemLayout}>
