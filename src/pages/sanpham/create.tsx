@@ -35,28 +35,29 @@ function index() {
   const [form] = Form.useForm();
 
   const handleAddProduct = (item: any) => {
-    console.log(item);
+    item.productId = null;
+    item.brandId = parseInt(item.brandId);
+    item.typeId = parseInt(item.typeId);
+    item.priceProduct = parseInt(item.priceProduct);
+    item.quantityProduct = parseInt(item.quantityProduct);
+    // console.log(item);
     axios
       .post('https://localhost:44300/api/Products/InsertProduct', item)
-      .then((resp) => {
-        const data = resp.data;
+      .then((res) => {
         router.push('/sanpham');
-        if (data) {
-          console.log(`data`, data);
-        }
       })
-      .catch((error) => {
-        console.log(error);
+      .catch((err) => {
+        console.log(err);
       });
   };
 
   return (
     <Layout title={'Product'}>
       <Form {...formItemLayout} form={form} name="register" onFinish={handleAddProduct} scrollToFirstError>
-        <Form.Item name="brandId" label="brandId">
+        <Form.Item name="brandId" label="Mã thương hiệu">
           <Input type="number" />
         </Form.Item>
-        <Form.Item name="typeId" label="typeId">
+        <Form.Item name="typeId" label="Loại">
           <Input />
         </Form.Item>
         <Form.Item name="productCode" label="Mã sản phẩm">

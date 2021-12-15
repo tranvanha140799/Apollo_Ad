@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import axios from 'axios';
 import Layout from 'Layouts';
 import withAuth from '@hocs/withAuth';
 import { Form, Input, Space, Cascader, Select, Row, Col, Checkbox, Button, AutoComplete } from 'antd';
-import { getSanPham, editSanPham } from '@core/services/API';
+// import { getSanPham, editSanPham } from '@core/services/API';
 
 const formItemLayout = {
   labelCol: {
@@ -38,11 +39,12 @@ function index() {
   }, []);
 
   const LoadDetail = () => {
-    getSanPham(id!.toString())
-      .then((resp) => {
-        const data = resp.data;
+    axios
+      .get('https://localhost:44300/api/Products/' + id)
+      .then((res) => {
+        const data = res.data;
         if (data) {
-          fillForm(resp.data);
+          fillForm(res.data);
         }
       })
       .catch((error) => {
@@ -52,41 +54,73 @@ function index() {
 
   const fillForm = (data: any) => {
     form.setFieldsValue({
-      maSanPham: data?.maSanPham,
-      tenSanPham: data?.tenSanPham,
-      soDangKy: data.soDangKy,
-      ngayDangKy: data.ngayDangKy,
-      ngaySanXuat: data.ngaySanXuat,
+      productCode: data[0].productCode,
+      productName: data[0].productName,
+      typeId: data[0].typeId,
+      brandId: data[0].brandId,
+      imageProduct: data[0].imageProduct,
+      priceProduct: data[0].priceProduct,
+      quantityProduct: data[0].quantityProduct,
+      descriptionProduct: data[0].descriptionProduct,
     });
   };
 
-  const handleUpdateProduct = (values: any) => {
-    editSanPham(values, id!.toString())
-      .then((resp) => {
-        console.log(resp.data);
+  const handleUpdateProduct = (item: any) => {
+    item.productId = id;
+    item.brandId = parseInt(item.brandId);
+    item.typeId = parseInt(item.typeId);
+    item.priceProduct = parseInt(item.priceProduct);
+    item.quantityProduct = parseInt(item.quantityProduct);
+    axios
+      .post('https://localhost:44300/api/Products/UpdateProduct', item)
+      .then((res) => {
+        console.log(res);
         router.push('/sanpham');
       })
-      .catch((error) => {
-        console.log('error', error);
+      .catch((err) => {
+        console.log(err);
       });
+  };
+
+  const handleDeleteProduct = (id: any) => {
+    if (confirm('Bạn có chắc muốn xoá sản phẩm?')) {
+      axios
+        .post('https://localhost:44300/api/Products/DeleteProduct/' + id)
+        .then((res) => {
+          //   console.log(res);
+          router.push('/sanpham');
+        })
+        .catch((res) => {
+          console.log(res);
+        });
+    }
   };
 
   return (
     <Layout title={'Product'}>
       <Form {...formItemLayout} form={form} name="register" onFinish={handleUpdateProduct} scrollToFirstError>
-        <Form.Item name="maSanPham" label="Mã sản phẩm" preserve>
+        <Form.Item name="productCode" label="Mã sản phẩm" preserve>
           <Input />
         </Form.Item>
-        <Form.Item name="tenSanPham" label="Tên sản phẩm">
+        <Form.Item name="productName" label="Tên sản phẩm">
           <Input />
         </Form.Item>
-        <Form.Item name="donGia" label="Đơn giá" preserve>
+        <Form.Item name="brandId" label="Mã thương hiệu">
           <Input />
         </Form.Item>
-        <Form.Item name="soLuong" label="Số lượng" preserve>
+        <Form.Item name="typeId" label="Mã loại">
           <Input />
         </Form.Item>
-        <Form.Item name="moTa" label="Mô tả" preserve>
+        <Form.Item name="priceProduct" label="Đơn giá" preserve>
+          <Input />
+        </Form.Item>
+        <Form.Item name="quantityProduct" label="Số lượng" preserve>
+          <Input />
+        </Form.Item>
+        <Form.Item name="descriptionProduct" label="Mô tả" preserve>
+          <Input />
+        </Form.Item>
+        <Form.Item name="imageProduct" label="Ảnh">
           <Input />
         </Form.Item>
 
@@ -95,7 +129,7 @@ function index() {
             <Button type="primary" htmlType="submit">
               Update
             </Button>
-            <Button htmlType="button" onClick={() => null}>
+            <Button onClick={() => handleDeleteProduct(id)} htmlType="button">
               Delete
             </Button>
           </Space>
